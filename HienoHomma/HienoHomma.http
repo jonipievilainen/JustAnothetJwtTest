@@ -1,0 +1,6 @@
+@HienoHomma_HostAddress = http://localhost:5109
+
+GET {{HienoHomma_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
