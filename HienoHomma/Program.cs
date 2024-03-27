@@ -7,6 +7,18 @@ using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.ApplicationInsights.Log4NetAppender;
+
+// Q: how to use log4net?
+// A: Add the following line to the using directives
+using log4net;
+using log4net.Config;
+using Microsoft.Extensions.Logging;
+using HienoHomma;
+
+// Configure log4net.config file
+XmlConfigurator.Configure(LogManager.GetRepository(System.Reflection.Assembly.GetEntryAssembly()), new FileInfo("log4net.config"));
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,10 +55,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<ILog>(provider => LogManager.GetLogger("AuditLogger"));
 
 
 
 
+
+// Configure log4net
+//var logRepository = LogManager.GetRepository(System.Reflection.Assembly.GetEntryAssembly());
+//XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+
+//var logger = LogManager.GetLogger(typeof(Program));
 
 
 
@@ -92,6 +111,13 @@ app.UseAuthorization();
 
 app.Use(async (context, next) =>
 {
+    // Example of logging
+    //logger.Info($"Sent response: {context.Response.StatusCode}");
+
+    Console.WriteLine("kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa kissa ");
+
+
+
     // Tarkista, onko Authorization-otsake asetettu
     if (context.Request.Headers.ContainsKey("Authorization"))
     {
@@ -143,4 +169,9 @@ app.Use(async (context, next) =>
 
 app.MapControllers();
 
+app.UseMiddleware<AuditMiddleware>();
+
+log4net.Util.LogLog.InternalDebugging = true;
+
 app.Run();
+

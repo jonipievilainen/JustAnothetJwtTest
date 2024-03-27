@@ -48,18 +48,10 @@ namespace HienoHomma.Controllers
         [HttpPost("token", Name = "GetToken")]
         public async Task<IActionResult> GetToken([FromBody] UserCredentials credentials)
         {
+            Console.WriteLine("Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: Username: " + credentials.Username);
             // Check if user credentials are valid
             if (credentials.Username == "string" && credentials.Password == "string")
             {
-                // Q: Can I add Username to the Claims?
-                // A: Yes, you can add Username to the Claims
-                // Q: How do I add Username to the Claims?
-                // A: You can add Username to the Claims by creating a new Claim with the ClaimTypes.Name and the Username as the value
-                // Q: How do I create a new Claim with the ClaimTypes.Name and the Username as the value?
-                // A: You can create a new Claim with the ClaimTypes.Name and the Username as the value by creating a new Claim with the ClaimTypes.Name and the Username as the value
-                // Q: How do I create a new Claim?
-                // A: You can create a new Claim by creating a new Claim with the ClaimTypes.Name and the Username as the value
-
                 // Create JWT token
                 var token = new JwtSecurityToken(
                     issuer: "HienoHomma",
